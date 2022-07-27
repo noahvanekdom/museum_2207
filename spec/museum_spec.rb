@@ -8,7 +8,7 @@ RSpec.describe Museum do
     let(:dead_sea_scrolls) {Exhibit.new({name: "Dead Sea Scrolls", cost: 10})}
     let(:imax) {Exhibit.new({name: "IMAX",cost: 15})}
     let(:patron_1) {Patron.new("Bob", 20)}
-    let(:patron_2) {Patron.new("Sally", 20))}
+    let(:patron_2) {Patron.new("Sally", 20)}
 
     it 'exists' do
         expect(dmns).to be_instance_of Museum
@@ -22,7 +22,7 @@ RSpec.describe Museum do
          expect(dmns.exhibits).to eq []
     end
 
-    context 'when exhibits are added' do
+    it 'can add exhibits and return an array of added exhibits' do
 
         dmns.add_exhibit(gems_and_minerals)
         dmns.add_exhibit(dead_sea_scrolls)
@@ -32,11 +32,8 @@ RSpec.describe Museum do
         patron_1.add_interest("Gems and Minerals")
         patron_2.add_interest("IMAX")
 
-
-        xit 'returns an array of exhibits at the museum' do
-        end
-
-        xit 'can recommend exhibits that match guests interests' do
-        end
+        expect(dmns.exhibits).to eq [gems_and_minerals, dead_sea_scrolls, imax]
+        expect(dmns.recommend_exhibits(patron_1)).to eq [gems_and_minerals, dead_sea_scrolls]
+        expect(dmns.recommend_exhibits(patron_2)).to eq [imax]
     end
 end
